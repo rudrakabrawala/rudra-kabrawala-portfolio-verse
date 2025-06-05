@@ -13,7 +13,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode }) => {
   const projects = [
     {
       title: "People Counting Bot",
-      description: "Developed real-time people counting for video surveillance using OpenCV, OpenVINO, and YOLOv6. Designed robust tracking and event logic for boundary crossings.",
+      description: "Developed real-time people counting for video surveillance using OpenCV, OpenVINO, and YOLOv6. Designed robust tracking and event logic for boundary crossings with MQTT integration.",
       tech: ["Python", "OpenCV", "OpenVINO", "YOLOv6", "MQTT", "Elasticsearch", "Flask API"],
       date: "April 2025",
       github: "https://github.com/rudrakabrawala"
@@ -46,13 +46,13 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode }) => {
           {projects.map((project, index) => (
             <Card key={index} className={`${
               darkMode 
-                ? 'bg-slate-800/70 border-slate-700/50 backdrop-blur-sm' 
+                ? 'bg-gray-800/70 border-gray-700/50 backdrop-blur-sm' 
                 : 'bg-white/80 border-gray-200/50 backdrop-blur-sm'
             } transition-all duration-300 hover:scale-105 hover:shadow-2xl group animate-fade-in`} style={{animationDelay: `${index * 200}ms`}}>
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <CardTitle className={`text-lg group-hover:text-xl transition-all ${
-                    darkMode ? 'text-white group-hover:text-cyan-400' : 'text-gray-800 group-hover:text-blue-600'
+                    darkMode ? 'text-white group-hover:text-blue-400' : 'text-gray-800 group-hover:text-gray-900'
                   }`}>
                     {project.title}
                   </CardTitle>
@@ -61,7 +61,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode }) => {
                     size="sm"
                     onClick={() => window.open(project.github, '_blank')}
                     className={`opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 ${
-                      darkMode ? 'hover:bg-slate-700 hover:text-cyan-400' : 'hover:bg-gray-100 hover:text-blue-600'
+                      darkMode ? 'hover:bg-gray-700 hover:text-blue-400' : 'hover:bg-gray-100 hover:text-gray-800'
                     }`}
                   >
                     <ExternalLink className="h-4 w-4" />
@@ -83,8 +83,8 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode }) => {
                   {project.tech.map((tech, techIndex) => (
                     <Badge key={techIndex} variant="outline" className={`text-xs transition-all hover:scale-105 ${
                       darkMode 
-                        ? 'border-slate-600 text-slate-400 hover:border-cyan-400 hover:text-cyan-400' 
-                        : 'border-gray-300 text-gray-600 hover:border-blue-400 hover:text-blue-600'
+                        ? 'border-gray-600 text-gray-400 hover:border-blue-400 hover:text-blue-400' 
+                        : 'border-gray-300 text-gray-600 hover:border-gray-700 hover:text-gray-800'
                     }`}>
                       {tech}
                     </Badge>

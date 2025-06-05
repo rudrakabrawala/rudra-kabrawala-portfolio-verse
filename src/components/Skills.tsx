@@ -13,17 +13,17 @@ const Skills: React.FC<SkillsProps> = ({ darkMode }) => {
     "Programming Languages": {
       skills: ["C++", "Python", "HTML", "CSS", "JavaScript"],
       icon: Code,
-      color: darkMode ? "from-cyan-400 to-blue-500" : "from-blue-600 to-purple-600"
+      color: darkMode ? "from-blue-400 to-cyan-500" : "from-gray-700 to-black"
     },
     "Technologies & Frameworks": {
       skills: ["MySQL", "PL/SQL", "OpenCV", "Machine Learning", "Excel", "Web-Scraping"],
       icon: Cpu,
-      color: darkMode ? "from-green-400 to-teal-500" : "from-teal-500 to-green-600"
+      color: darkMode ? "from-cyan-400 to-blue-500" : "from-gray-600 to-gray-800"
     },
     "Core Subjects": {
       skills: ["Data Structures", "Operating Systems", "DBMS", "OOP", "Cybersecurity"],
       icon: Database,
-      color: darkMode ? "from-purple-400 to-pink-500" : "from-purple-500 to-pink-600"
+      color: darkMode ? "from-blue-500 to-gray-600" : "from-black to-gray-700"
     }
   };
 
@@ -39,7 +39,7 @@ const Skills: React.FC<SkillsProps> = ({ darkMode }) => {
           {Object.entries(skills).map(([category, data], index) => (
             <Card key={index} className={`${
               darkMode 
-                ? 'bg-slate-800/70 border-slate-700/50 backdrop-blur-sm' 
+                ? 'bg-gray-800/70 border-gray-700/50 backdrop-blur-sm' 
                 : 'bg-white/80 border-gray-200/50 backdrop-blur-sm'
             } transition-all duration-300 hover:scale-105 hover:shadow-xl group animate-fade-in`} style={{animationDelay: `${index * 200}ms`}}>
               <CardHeader className="text-center">

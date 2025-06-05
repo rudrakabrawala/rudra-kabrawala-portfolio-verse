@@ -51,15 +51,15 @@ const Achievements: React.FC<AchievementsProps> = ({ darkMode }) => {
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <h2 className={`text-4xl font-bold text-center mb-12 ${
-          darkMode ? 'text-white' : 'text-slate-800'
+          darkMode ? 'text-white' : 'text-gray-800'
         }`}>
           Achievements & Leadership
         </h2>
         <div className="relative">
           <Card className={`${
             darkMode 
-              ? 'bg-slate-800/50 border-slate-700 backdrop-blur-sm' 
-              : 'bg-white/70 border-slate-200 backdrop-blur-sm'
+              ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' 
+              : 'bg-white/70 border-gray-200 backdrop-blur-sm'
           } transition-all duration-300`}>
             <CardContent className="p-8">
               <div className="flex items-center justify-between mb-6">
@@ -67,7 +67,7 @@ const Achievements: React.FC<AchievementsProps> = ({ darkMode }) => {
                   variant="ghost"
                   onClick={prevAchievement}
                   className={`${
-                    darkMode ? 'hover:bg-slate-700' : 'hover:bg-slate-100'
+                    darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
                   }`}
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -75,25 +75,25 @@ const Achievements: React.FC<AchievementsProps> = ({ darkMode }) => {
                 <div className="text-center">
                   <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
                     darkMode 
-                      ? 'bg-gradient-to-r from-cyan-500 to-purple-600' 
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600'
+                      ? 'bg-gradient-to-r from-blue-500 to-cyan-600' 
+                      : 'bg-gradient-to-r from-gray-700 to-black'
                   }`}>
                     {React.createElement(achievements[currentAchievement].icon, {
                       className: "h-8 w-8 text-white"
                     })}
                   </div>
                   <h3 className={`text-xl font-semibold mb-2 ${
-                    darkMode ? 'text-white' : 'text-slate-800'
+                    darkMode ? 'text-white' : 'text-gray-800'
                   }`}>
                     {achievements[currentAchievement].title}
                   </h3>
-                  <p className={`${darkMode ? 'text-slate-300' : 'text-slate-700'} mb-2`}>
+                  <p className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`}>
                     {achievements[currentAchievement].description}
                   </p>
                   <Badge variant="outline" className={`${
                     darkMode 
-                      ? 'border-slate-600 text-slate-400' 
-                      : 'border-slate-300 text-slate-600'
+                      ? 'border-gray-600 text-gray-400' 
+                      : 'border-gray-300 text-gray-600'
                   }`}>
                     {achievements[currentAchievement].year}
                   </Badge>
@@ -102,7 +102,7 @@ const Achievements: React.FC<AchievementsProps> = ({ darkMode }) => {
                   variant="ghost"
                   onClick={nextAchievement}
                   className={`${
-                    darkMode ? 'hover:bg-slate-700' : 'hover:bg-slate-100'
+                    darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
                   }`}
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -115,8 +115,8 @@ const Achievements: React.FC<AchievementsProps> = ({ darkMode }) => {
                     onClick={() => setCurrentAchievement(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentAchievement
-                        ? (darkMode ? 'bg-cyan-400' : 'bg-blue-500')
-                        : (darkMode ? 'bg-slate-600' : 'bg-slate-300')
+                        ? (darkMode ? 'bg-blue-400' : 'bg-gray-700')
+                        : (darkMode ? 'bg-gray-600' : 'bg-gray-300')
                     }`}
                   />
                 ))}
