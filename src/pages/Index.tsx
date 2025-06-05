@@ -233,7 +233,7 @@ const Index = () => {
       {/* ChatBot Component */}
       {showChatBot && <ChatBot darkMode={darkMode} />}
 
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in {
           from {
             opacity: 0;
