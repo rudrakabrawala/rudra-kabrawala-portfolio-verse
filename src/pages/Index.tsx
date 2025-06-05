@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Download, Github, Linkedin, Mail, Instagram, Music, Football, Code, Brain, Users, Award, MapPin, Phone, Calendar, ExternalLink, ChevronLeft, ChevronRight, MessageCircle, X, Send } from 'lucide-react';
+import { Moon, Sun, Download, Github, Linkedin, Mail, Instagram, Music, User, Code, Brain, Users, Award, MapPin, Phone, Calendar, ExternalLink, ChevronLeft, ChevronRight, MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -243,7 +242,7 @@ const Index = () => {
                   <span>Music Lover</span>
                 </div>
                 <div className={`flex items-center gap-2 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                  <Football className="h-4 w-4" />
+                  <User className="h-4 w-4" />
                   <span>Football Enthusiast</span>
                 </div>
               </div>
