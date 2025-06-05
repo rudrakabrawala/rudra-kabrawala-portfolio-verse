@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +12,7 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Achievements from '@/components/Achievements';
 import Contact from '@/components/Contact';
+import Interests from '@/components/Interests';
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -31,19 +31,19 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${darkMode ? 'dark' : ''}`}>
-      {/* Animated Background with Floating Elements */}
+      {/* Simplified background without heavy animations */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div className={`absolute inset-0 transition-all duration-500 ${darkMode 
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700' 
           : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200'
         }`}>
-          {/* Gradient Orbs */}
-          <div className={`absolute top-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-20 ${
-            darkMode ? 'bg-gradient-to-r from-blue-400 to-cyan-500' : 'bg-gradient-to-r from-gray-400 to-gray-600'
-          } animate-pulse`}></div>
-          <div className={`absolute bottom-1/4 left-1/3 w-48 h-48 rounded-full blur-3xl opacity-15 ${
-            darkMode ? 'bg-gradient-to-r from-cyan-400 to-blue-500' : 'bg-gradient-to-r from-gray-500 to-gray-700'
-          } animate-pulse animation-delay-3000`}></div>
+          {/* Subtle gradient orbs without animations */}
+          <div className={`absolute top-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-5 ${
+            darkMode ? 'bg-gradient-to-r from-gray-600 to-gray-700' : 'bg-gradient-to-r from-gray-300 to-gray-400'
+          }`}></div>
+          <div className={`absolute bottom-1/4 left-1/3 w-48 h-48 rounded-full blur-3xl opacity-5 ${
+            darkMode ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-gray-400 to-gray-500'
+          }`}></div>
         </div>
       </div>
 
@@ -169,6 +169,7 @@ const Index = () => {
 
         <Projects darkMode={darkMode} />
         <Skills darkMode={darkMode} />
+        <Interests darkMode={darkMode} />
         <Achievements darkMode={darkMode} />
 
         {/* Certifications Section */}
