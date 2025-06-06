@@ -31,7 +31,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [sampleQuestions] = useState([
     "Where does Rudra live?",
-    "What are Rudra's skills?",
+    "What are Rudra's semester grades?",
     "Tell me about Rudra's projects",
     "What are Rudra's hobbies?"
   ]);
