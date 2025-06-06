@@ -2,6 +2,15 @@
 import React, { useState } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { 
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from "@/components/ui/navigation-menu";
 
 interface NavigationProps {
   darkMode: boolean;
@@ -33,8 +42,8 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
   return (
     <nav className={`fixed top-0 w-full z-50 backdrop-blur-lg border-b transition-all duration-300 ${
       darkMode 
-        ? 'bg-black/95 border-gray-800/50' 
-        : 'bg-white/95 border-gray-200/50'
+        ? 'bg-black/95 border-gray-800/50 shadow-md shadow-blue-900/10' 
+        : 'bg-white/95 border-gray-200/50 shadow-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -65,33 +74,36 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
           </div>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-all duration-200 hover:scale-105 relative group ${
-                  darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                {item.label}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-200 group-hover:w-full ${
-                  darkMode ? 'bg-blue-400' : 'bg-gray-800'
-                }`}></span>
-              </button>
-            ))}
-          </div>
+          <div className="hidden md:flex items-center space-x-2">
+            <NavigationMenu>
+              <NavigationMenuList>
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.id}>
+                    <Button
+                      variant={darkMode ? "ghost" : "ghost"}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105 ${
+                        darkMode 
+                          ? 'text-gray-200 hover:text-white hover:bg-gray-800/70' 
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/70'
+                      }`}
+                    >
+                      {item.label}
+                    </Button>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
 
-          {/* Theme Toggle and Mobile Menu */}
-          <div className="flex items-center space-x-3">
+            {/* Theme Toggle Button */}
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={() => setDarkMode(!darkMode)}
-              className={`p-2 rounded-full transition-all duration-300 hover:scale-110 relative group ${
+              className={`ml-2 p-2 rounded-full transition-all duration-300 hover:scale-110 relative group ${
                 darkMode 
-                  ? 'hover:bg-gray-800 text-yellow-400 hover:text-yellow-300' 
-                  : 'hover:bg-gray-100 text-gray-600 hover:text-yellow-600'
+                  ? 'text-yellow-400 hover:text-yellow-300 hover:bg-gray-800/70' 
+                  : 'text-gray-600 hover:text-yellow-600 hover:bg-gray-100/70'
               }`}
             >
               <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 transition-opacity ${
@@ -99,16 +111,31 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
               }`}></div>
               {darkMode ? <Sun className="h-5 w-5 relative z-10" /> : <Moon className="h-5 w-5 relative z-10" />}
             </Button>
+          </div>
 
-            {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2">
             <Button
               variant="ghost"
-              size="sm"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-all duration-300 ${
+              size="icon"
+              onClick={() => setDarkMode(!darkMode)}
+              className={`p-2 rounded-full transition-all duration-300 ${
                 darkMode 
-                  ? 'hover:bg-gray-800 text-gray-300' 
-                  : 'hover:bg-gray-100 text-gray-600'
+                  ? 'text-yellow-400' 
+                  : 'text-gray-600'
+              }`}
+            >
+              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-lg transition-all duration-300 ${
+                darkMode 
+                  ? 'text-gray-300' 
+                  : 'text-gray-600'
               }`}
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -123,17 +150,18 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
           }`}>
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
-                <button
+                <Button
                   key={item.id}
+                  variant="ghost"
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
+                  className={`block w-full justify-start text-left px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
                     darkMode 
                       ? 'text-gray-300 hover:text-white hover:bg-gray-800' 
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                 >
                   {item.label}
-                </button>
+                </Button>
               ))}
             </div>
           </div>

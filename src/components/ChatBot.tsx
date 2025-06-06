@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Send, Bot, User } from 'lucide-react';
+import { Send, Bot, User, HelpCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import personalFaq from '../data/personal-faq.json';
 
@@ -29,6 +29,12 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [sampleQuestions] = useState([
+    "Where does Rudra live?",
+    "What are Rudra's skills?",
+    "Tell me about Rudra's projects",
+    "What are Rudra's hobbies?"
+  ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -48,6 +54,14 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       if (faq.question && lowerMsg.includes(faq.question.toLowerCase())) {
         return faq.answer;
       }
+    }
+    
+    // Location/residence specific question handling
+    if (
+      lowerMsg.includes("where") && 
+      (lowerMsg.includes("live") || lowerMsg.includes("stay") || lowerMsg.includes("from") || lowerMsg.includes("location"))
+    ) {
+      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
     }
     
     // If no exact match, try keyword matching
@@ -128,6 +142,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     if (lowerMessage.includes('resume') || lowerMessage.includes('cv')) {
       return "You can download Rudra's resume directly from the website using the 'Download Resume' button in the hero section!";
     }
+    if (lowerMessage.includes('live') || lowerMessage.includes('from') || lowerMessage.includes('location')) {
+      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
+    }
 
     // For general or unrelated questions, use OpenAI GPT API
     try {
@@ -135,7 +152,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       const response = await fetch('/api/gpt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: `Answer this question about Rudra Kabrawala based on his personal information: ${userMessage}` })
+        body: JSON.stringify({ 
+          prompt: `Answer this question about Rudra Kabrawala based on his personal information. Be accurate and precise: ${userMessage}` 
+        })
       });
       
       if (!response.ok) {
@@ -189,6 +208,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     }
   };
 
+  const handleSampleQuestion = (question: string) => {
+    setInputMessage(question);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       sendMessage();
@@ -196,40 +219,44 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   };
 
   return (
-    <Card className={`fixed bottom-20 right-6 w-80 h-96 z-40 ${
+    <Card className={`fixed bottom-20 right-6 md:w-96 w-[calc(100%-3rem)] max-w-md h-[500px] z-40 ${
       darkMode 
-        ? 'bg-slate-800/95 border-slate-700 backdrop-blur-md' 
-        : 'bg-white/95 border-slate-200 backdrop-blur-md'
-    } shadow-2xl`}>
-      <CardHeader className="pb-3">
+        ? 'bg-gray-900/95 border-gray-700 backdrop-blur-lg shadow-lg shadow-blue-900/20' 
+        : 'bg-white/95 border-slate-200 backdrop-blur-lg shadow-xl'
+    } rounded-xl overflow-hidden`}>
+      <CardHeader className={`pb-2 ${darkMode ? 'bg-gray-800' : 'bg-slate-50'}`}>
         <CardTitle className={`text-lg flex items-center gap-2 ${
           darkMode ? 'text-white' : 'text-slate-800'
         }`}>
-          <Bot className="h-5 w-5" />
-          Ask about Rudra
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+            darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+          }`}>
+            <Bot className="h-5 w-5 text-white" />
+          </div>
+          <span>Rudra's AI Assistant</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto space-y-3 mb-3">
+      <CardContent className="flex flex-col h-[calc(100%-4rem)] p-0">
+        <div className="flex-1 overflow-y-auto space-y-3 p-4">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex items-start gap-2 ${
                 message.isBot ? 'justify-start' : 'justify-end'
-              }`}
+              } ${message.isBot ? 'pr-12' : 'pl-12'}`}
             >
               {message.isBot && (
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                   darkMode ? 'bg-cyan-500' : 'bg-blue-500'
                 }`}>
-                  <Bot className="h-3 w-3 text-white" />
+                  <Bot className="h-4 w-4 text-white" />
                 </div>
               )}
               <div
-                className={`max-w-[200px] p-2 rounded-lg text-sm ${
+                className={`p-3 rounded-lg text-sm ${
                   message.isBot
                     ? darkMode
-                      ? 'bg-slate-700 text-slate-200'
+                      ? 'bg-gray-800 text-gray-100'
                       : 'bg-slate-100 text-slate-800'
                     : darkMode
                       ? 'bg-cyan-600 text-white'
@@ -239,33 +266,33 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
                 {message.text}
               </div>
               {!message.isBot && (
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                  darkMode ? 'bg-slate-600' : 'bg-slate-400'
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                  darkMode ? 'bg-gray-700' : 'bg-slate-400'
                 }`}>
-                  <User className="h-3 w-3 text-white" />
+                  <User className="h-4 w-4 text-white" />
                 </div>
               )}
             </div>
           ))}
           {isTyping && (
             <div className="flex items-start gap-2">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                 darkMode ? 'bg-cyan-500' : 'bg-blue-500'
               }`}>
-                <Bot className="h-3 w-3 text-white" />
+                <Bot className="h-4 w-4 text-white" />
               </div>
-              <div className={`p-2 rounded-lg ${
-                darkMode ? 'bg-slate-700' : 'bg-slate-100'
+              <div className={`p-3 rounded-lg ${
+                darkMode ? 'bg-gray-800' : 'bg-slate-100'
               }`}>
                 <div className="flex space-x-1">
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-slate-400' : 'bg-slate-500'
+                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
                   }`} style={{ animationDelay: '0ms' }}></div>
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-slate-400' : 'bg-slate-500'
+                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
                   }`} style={{ animationDelay: '150ms' }}></div>
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-slate-400' : 'bg-slate-500'
+                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
                   }`} style={{ animationDelay: '300ms' }}></div>
                 </div>
               </div>
@@ -273,7 +300,30 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <div className="flex gap-2">
+        
+        {/* Sample questions */}
+        <div className={`px-4 py-2 overflow-x-auto ${darkMode ? 'bg-gray-800/80' : 'bg-slate-50/80'} flex gap-2 items-center`}>
+          <HelpCircle className={`h-4 w-4 shrink-0 ${darkMode ? 'text-gray-400' : 'text-slate-500'}`} />
+          <div className="flex gap-2 whitespace-nowrap">
+            {sampleQuestions.map((question) => (
+              <Button 
+                key={question} 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleSampleQuestion(question)}
+                className={`text-xs ${
+                  darkMode 
+                    ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' 
+                    : 'bg-slate-200 hover:bg-slate-300 border-slate-300'
+                }`}
+              >
+                {question}
+              </Button>
+            ))}
+          </div>
+        </div>
+        
+        <div className={`flex gap-2 p-3 border-t ${darkMode ? 'bg-gray-800/90 border-gray-700' : 'bg-white border-gray-200'}`}>
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
@@ -281,14 +331,14 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
             placeholder="Ask me anything..."
             className={`text-sm ${
               darkMode 
-                ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
+                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
                 : 'bg-white border-slate-300'
             }`}
           />
           <Button
             onClick={sendMessage}
             disabled={!inputMessage.trim()}
-            size="sm"
+            size="icon"
             className={`${
               darkMode 
                 ? 'bg-cyan-600 hover:bg-cyan-700' 

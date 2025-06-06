@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle, X, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -51,7 +50,7 @@ const Index = () => {
       <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
 
       {/* Main Content with better mobile alignment */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full max-w-full mx-auto">
         <Hero darkMode={darkMode} />
         <About darkMode={darkMode} />
 
@@ -264,17 +263,38 @@ const Index = () => {
         </footer>
       </div>
 
-      {/* Floating ChatBot Button with better mobile positioning */}
+      {/* Floating ChatBot Button with enhanced styling */}
       <Button
         onClick={() => setShowChatBot(!showChatBot)}
-        className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 ${
+        className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 w-14 h-14 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center ${
           darkMode 
-            ? 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 shadow-blue-500/25' 
-            : 'bg-gradient-to-r from-gray-700 to-black hover:from-gray-800 hover:to-gray-900 shadow-gray-500/25'
+            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-blue-500/25' 
+            : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-blue-500/25'
         }`}
       >
-        {showChatBot ? <X className="h-5 w-5 md:h-6 md:w-6" /> : <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />}
+        {showChatBot ? 
+          <X className="h-6 w-6 text-white" /> : 
+          <MessageCircle className="h-6 w-6 text-white" />
+        }
+        
+        {!showChatBot && (
+          <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">1</span>
+        )}
       </Button>
+
+      {/* Help message for chatbot when it's not open */}
+      {!showChatBot && (
+        <div className={`fixed bottom-20 right-6 z-40 max-w-xs animate-pulse ${
+          darkMode ? 'text-cyan-300' : 'text-blue-600'
+        } text-sm flex items-center gap-2 bg-opacity-80 p-3 rounded-lg ${
+          darkMode ? 'bg-gray-900/80' : 'bg-white/80'
+        } shadow-lg backdrop-blur-sm border ${
+          darkMode ? 'border-gray-700' : 'border-gray-200'
+        }`}>
+          <HelpCircle className="h-5 w-5 shrink-0" />
+          <p>Ask me anything about Rudra!</p>
+        </div>
+      )}
 
       {/* ChatBot Component */}
       {showChatBot && <ChatBot darkMode={darkMode} />}
