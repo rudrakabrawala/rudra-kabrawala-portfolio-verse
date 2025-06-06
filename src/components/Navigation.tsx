@@ -6,11 +6,10 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
+import { cn } from '@/lib/utils';
 
 interface NavigationProps {
   darkMode: boolean;
@@ -42,7 +41,7 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
   return (
     <nav className={`fixed top-0 w-full z-50 backdrop-blur-lg border-b transition-all duration-300 ${
       darkMode 
-        ? 'bg-black/95 border-gray-800/50 shadow-md shadow-blue-900/10' 
+        ? 'bg-black/90 border-gray-800/50 shadow-md shadow-blue-900/20' 
         : 'bg-white/95 border-gray-200/50 shadow-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,12 +50,12 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('hero')}>
             <div className="relative group">
               <div className={`absolute inset-0 rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity ${
-                darkMode ? 'bg-blue-400' : 'bg-gray-800'
+                darkMode ? 'bg-blue-500' : 'bg-gray-800'
               }`}></div>
               <img 
                 src="/lovable-uploads/a6d1bd34-48b9-4c9b-8b61-58d55a07ef35.png" 
                 alt="RK Logo"
-                className="relative w-10 h-10 transition-all duration-300 transform group-hover:scale-110 rounded-full object-cover"
+                className="relative w-10 h-10 transition-all duration-300 transform group-hover:scale-110 rounded-full object-cover border-2 border-transparent group-hover:border-blue-400"
               />
             </div>
             <div>
@@ -80,13 +79,13 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.id}>
                     <Button
-                      variant={darkMode ? "ghost" : "ghost"}
                       onClick={() => scrollToSection(item.id)}
-                      className={`px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105 ${
+                      className={cn(
+                        "px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105",
                         darkMode 
-                          ? 'text-gray-200 hover:text-white hover:bg-gray-800/70' 
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/70'
-                      }`}
+                          ? "bg-gray-900 hover:bg-gray-800 text-gray-100 hover:text-white border border-gray-800 hover:border-blue-800 hover:shadow-md hover:shadow-blue-900/10"
+                          : "bg-gray-50 hover:bg-gray-100 text-gray-800 hover:text-gray-900 border border-gray-200 hover:border-gray-300 hover:shadow-sm"
+                      )}
                     >
                       {item.label}
                     </Button>
@@ -95,48 +94,51 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle Button with improved visibility */}
             <Button
-              variant="ghost"
-              size="icon"
+              variant={darkMode ? "outline" : "outline"}
               onClick={() => setDarkMode(!darkMode)}
-              className={`ml-2 p-2 rounded-full transition-all duration-300 hover:scale-110 relative group ${
+              className={`ml-3 p-2 rounded-full transition-all duration-300 hover:scale-110 relative group ${
                 darkMode 
-                  ? 'text-yellow-400 hover:text-yellow-300 hover:bg-gray-800/70' 
-                  : 'text-gray-600 hover:text-yellow-600 hover:bg-gray-100/70'
+                  ? 'text-yellow-300 border-gray-700 hover:text-yellow-200 hover:bg-gray-800 hover:border-gray-600' 
+                  : 'text-gray-600 border-gray-300 hover:text-yellow-600 hover:bg-gray-100 hover:border-gray-400'
               }`}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 transition-opacity ${
                 darkMode ? 'bg-yellow-400' : 'bg-yellow-500'
               }`}></div>
-              {darkMode ? <Sun className="h-5 w-5 relative z-10" /> : <Moon className="h-5 w-5 relative z-10" />}
+              {darkMode ? 
+                <Sun className="h-5 w-5 relative z-10" /> : 
+                <Moon className="h-5 w-5 relative z-10" />
+              }
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex items-center space-x-3">
             <Button
-              variant="ghost"
-              size="icon"
+              variant={darkMode ? "outline" : "outline"}
               onClick={() => setDarkMode(!darkMode)}
               className={`p-2 rounded-full transition-all duration-300 ${
                 darkMode 
-                  ? 'text-yellow-400' 
-                  : 'text-gray-600'
+                  ? 'text-yellow-300 border-gray-700' 
+                  : 'text-gray-600 border-gray-300'
               }`}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
             
             <Button
-              variant="ghost"
-              size="icon"
+              variant={darkMode ? "outline" : "outline"}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`p-2 rounded-lg transition-all duration-300 ${
                 darkMode 
-                  ? 'text-gray-300' 
-                  : 'text-gray-600'
+                  ? 'text-gray-300 border-gray-700' 
+                  : 'text-gray-600 border-gray-300'
               }`}
+              aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -152,13 +154,13 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
               {navItems.map((item) => (
                 <Button
                   key={item.id}
-                  variant="ghost"
+                  variant={darkMode ? "outline" : "outline"}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full justify-start text-left px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
+                  className={`block w-full justify-start text-left px-3 py-2 text-base font-medium transition-all duration-200 ${
                     darkMode 
-                      ? 'text-gray-300 hover:text-white hover:bg-gray-800' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
+                      ? 'text-gray-300 hover:text-white border-gray-800 hover:border-gray-700 bg-transparent hover:bg-gray-800/50' 
+                      : 'text-gray-600 hover:text-gray-900 border-gray-200 hover:border-gray-300 bg-transparent hover:bg-gray-100/70'
+                  } mb-1`}
                 >
                   {item.label}
                 </Button>

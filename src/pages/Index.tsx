@@ -15,7 +15,8 @@ import Contact from '@/components/Contact';
 import Interests from '@/components/Interests';
 
 const Index = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  // Set dark mode as default (true instead of false)
+  const [darkMode, setDarkMode] = useState(true);
   const [showGame, setShowGame] = useState(false);
   const [showChatBot, setShowChatBot] = useState(false);
 
@@ -263,36 +264,37 @@ const Index = () => {
         </footer>
       </div>
 
-      {/* Floating ChatBot Button with enhanced styling */}
+      {/* Floating ChatBot Button with enhanced styling and more visibility */}
       <Button
         onClick={() => setShowChatBot(!showChatBot)}
-        className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 w-14 h-14 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center ${
+        className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 w-16 h-16 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center ${
           darkMode 
-            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-blue-500/25' 
-            : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-blue-500/25'
+            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-blue-500/40 border border-blue-400/20' 
+            : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-blue-500/30 border border-blue-400/20'
         }`}
+        aria-label="Open chat assistant"
       >
         {showChatBot ? 
-          <X className="h-6 w-6 text-white" /> : 
-          <MessageCircle className="h-6 w-6 text-white" />
+          <X className="h-7 w-7 text-white" /> : 
+          <MessageCircle className="h-7 w-7 text-white" />
         }
         
         {!showChatBot && (
-          <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">1</span>
+          <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white animate-pulse">1</span>
         )}
       </Button>
 
-      {/* Help message for chatbot when it's not open */}
+      {/* Help message for chatbot with improved visibility when it's not open */}
       {!showChatBot && (
-        <div className={`fixed bottom-20 right-6 z-40 max-w-xs animate-pulse ${
+        <div className={`fixed bottom-24 right-6 z-40 max-w-xs animate-pulse ${
           darkMode ? 'text-cyan-300' : 'text-blue-600'
-        } text-sm flex items-center gap-2 bg-opacity-80 p-3 rounded-lg ${
-          darkMode ? 'bg-gray-900/80' : 'bg-white/80'
+        } text-sm md:text-base flex items-center gap-2 bg-opacity-90 p-4 rounded-lg ${
+          darkMode ? 'bg-gray-900/90' : 'bg-white/90'
         } shadow-lg backdrop-blur-sm border ${
           darkMode ? 'border-gray-700' : 'border-gray-200'
-        }`}>
+        } animate-fade-in`}>
           <HelpCircle className="h-5 w-5 shrink-0" />
-          <p>Ask me anything about Rudra!</p>
+          <p className="font-medium">Ask me anything about Rudra!</p>
         </div>
       )}
 

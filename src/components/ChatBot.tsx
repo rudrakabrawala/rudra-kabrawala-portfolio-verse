@@ -45,23 +45,31 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     scrollToBottom();
   }, [messages]);
 
-  // Improved function to find answers from personal FAQ dataset
+  // Significantly improved function to find answers from personal FAQ dataset
   function findPersonalAnswer(userMessage: string) {
     const lowerMsg = userMessage.toLowerCase();
     
-    // First try exact question matching
+    // Location/residence specific question handling - direct match for important questions
+    if (lowerMsg.includes("where") && 
+        (lowerMsg.includes("live") || lowerMsg.includes("stay") || lowerMsg.includes("from") || lowerMsg.includes("location") || lowerMsg.includes("he live"))) {
+      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
+    }
+    
+    // Skills specific questions
+    if (lowerMsg.includes("skill") || lowerMsg.includes("good at") || lowerMsg.includes("knows") || lowerMsg.includes("expertise")) {
+      return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more. He specializes in computer vision and AI-based systems. He is also experienced in web development, data analysis, and community leadership.";
+    }
+    
+    // Hobbies specific questions
+    if (lowerMsg.includes("hobby") || lowerMsg.includes("hobbies") || lowerMsg.includes("free time") || lowerMsg.includes("interest")) {
+      return "Rudra enjoys writing, cooking, exploring new technologies, and mentoring students. He's also passionate about football - both watching and playing!";
+    }
+
+    // Try exact question matching from FAQ
     for (const faq of personalFaq) {
       if (faq.question && lowerMsg.includes(faq.question.toLowerCase())) {
         return faq.answer;
       }
-    }
-    
-    // Location/residence specific question handling
-    if (
-      lowerMsg.includes("where") && 
-      (lowerMsg.includes("live") || lowerMsg.includes("stay") || lowerMsg.includes("from") || lowerMsg.includes("location"))
-    ) {
-      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
     }
     
     // If no exact match, try keyword matching
@@ -84,6 +92,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   }
 
   const getBotResponse = async (userMessage: string): Promise<string> => {
+    console.log("Processing user query:", userMessage);
+    
     // List of offensive or sensitive keywords/phrases
     const offensiveKeywords = [
       'offensive', 'hate', 'stupid', 'idiot', 'dumb', 'kill', 'suicide', 
@@ -109,14 +119,20 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
 
     // Try to answer from personal dataset first
     const personal = findPersonalAnswer(userMessage);
-    if (personal) return personal;
+    if (personal) {
+      console.log("Found answer in personal dataset:", personal);
+      return personal;
+    }
 
     // If no personal answer found, process common questions
-    if (lowerMessage.includes('skill') || lowerMessage.includes('technology')) {
+    if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage.includes('good at')) {
       return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more. He specializes in computer vision and AI-based systems!";
     }
     if (lowerMessage.includes('project')) {
       return "Rudra has worked on exciting projects like People Counting Bot with YOLOv6, Hand Gesture Recognition with TensorFlow, and EmployedIN web app. Check out his GitHub for more details!";
+    }
+    if (lowerMessage.includes('hobby') || lowerMessage.includes('hobbies') || lowerMessage.includes('interests') || lowerMessage.includes('football')) {
+      return "Rudra enjoys writing, cooking, exploring new technologies, mentoring students, and playing football! He's passionate about the sport and follows it closely.";
     }
     if (lowerMessage.includes('experience') || lowerMessage.includes('internship')) {
       return "Rudra interned as an ML Engineer at Aivid Techvision, working on surveillance products using Python and OpenCV for real-time video analysis.";
@@ -133,17 +149,14 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
       return "You can reach Rudra at rudrakabrawala@gmail.com or connect on LinkedIn at linkedin.com/in/rudrakabrawala. He's also on Instagram and Spotify!";
     }
-    if (lowerMessage.includes('music') || lowerMessage.includes('football') || lowerMessage.includes('hobby')) {
-      return "Rudra loves music and is a football enthusiast! These interests keep him balanced alongside his tech pursuits.";
+    if (lowerMessage.includes('live') || lowerMessage.includes('from') || lowerMessage.includes('location')) {
+      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
     }
     if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
       return "Hello! I'm here to help you learn more about Rudra Kabrawala. What would you like to know about his skills, projects, or experience?";
     }
     if (lowerMessage.includes('resume') || lowerMessage.includes('cv')) {
       return "You can download Rudra's resume directly from the website using the 'Download Resume' button in the hero section!";
-    }
-    if (lowerMessage.includes('live') || lowerMessage.includes('from') || lowerMessage.includes('location')) {
-      return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
     }
 
     // For general or unrelated questions, use OpenAI GPT API
@@ -153,7 +166,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          prompt: `Answer this question about Rudra Kabrawala based on his personal information. Be accurate and precise: ${userMessage}` 
+          prompt: `Answer this question about Rudra Kabrawala based on his personal information. 
+          Rudra is from Bharuch, Gujarat, India and currently studying at SVKM NMIMS in Shirpur, Maharashtra.
+          His skills include Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and AI systems.
+          He enjoys writing, cooking, football, exploring new technologies, and mentoring students.
+          Be accurate, precise, and keep responses under 100 words: ${userMessage}` 
         })
       });
       
@@ -167,7 +184,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       return data.reply || "I couldn't find specific information about that. Would you like to know about Rudra's skills, projects, or experience instead?";
     } catch (err) {
       console.error("Error calling OpenAI API:", err);
-      return "I'm having trouble connecting to my knowledge base right now. Could you ask me something about Rudra's skills, projects, or experience instead?";
+      return "I'm having trouble connecting to my knowledge base right now. Could you ask me something specific about Rudra's skills, projects, or experience instead?";
     }
   };
 
@@ -210,6 +227,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
 
   const handleSampleQuestion = (question: string) => {
     setInputMessage(question);
+    // Automatically send the question after a slight delay for better UX
+    setTimeout(() => {
+      sendMessage();
+    }, 300);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -219,35 +240,39 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   };
 
   return (
-    <Card className={`fixed bottom-20 right-6 md:w-96 w-[calc(100%-3rem)] max-w-md h-[500px] z-40 ${
+    <Card className={`fixed bottom-20 right-6 md:w-96 w-[calc(100%-3rem)] max-w-md h-[550px] z-40 ${
       darkMode 
-        ? 'bg-gray-900/95 border-gray-700 backdrop-blur-lg shadow-lg shadow-blue-900/20' 
+        ? 'bg-gray-900/95 border-blue-900/30 backdrop-blur-lg shadow-lg shadow-blue-900/20' 
         : 'bg-white/95 border-slate-200 backdrop-blur-lg shadow-xl'
     } rounded-xl overflow-hidden`}>
-      <CardHeader className={`pb-2 ${darkMode ? 'bg-gray-800' : 'bg-slate-50'}`}>
+      <CardHeader className={`pb-3 ${darkMode ? 'bg-gray-800/80' : 'bg-slate-50'} border-b ${
+        darkMode ? 'border-gray-700' : 'border-slate-200'
+      }`}>
         <CardTitle className={`text-lg flex items-center gap-2 ${
           darkMode ? 'text-white' : 'text-slate-800'
         }`}>
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-            darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+          <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
+            darkMode ? 'bg-gradient-to-r from-blue-600 to-cyan-600' : 'bg-gradient-to-r from-blue-500 to-blue-600'
           }`}>
             <Bot className="h-5 w-5 text-white" />
           </div>
           <span>Rudra's AI Assistant</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col h-[calc(100%-4rem)] p-0">
+      <CardContent className="flex flex-col h-[calc(100%-4.5rem)] p-0">
         <div className="flex-1 overflow-y-auto space-y-3 p-4">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex items-start gap-2 ${
                 message.isBot ? 'justify-start' : 'justify-end'
-              } ${message.isBot ? 'pr-12' : 'pl-12'}`}
+              } ${message.isBot ? 'pr-12' : 'pl-12'} animate-fade-in`}
             >
               {message.isBot && (
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                  darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+                  darkMode 
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600' 
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600'
                 }`}>
                   <Bot className="h-4 w-4 text-white" />
                 </div>
@@ -256,11 +281,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
                 className={`p-3 rounded-lg text-sm ${
                   message.isBot
                     ? darkMode
-                      ? 'bg-gray-800 text-gray-100'
+                      ? 'bg-gray-800 border border-gray-700 text-gray-100'
                       : 'bg-slate-100 text-slate-800'
                     : darkMode
-                      ? 'bg-cyan-600 text-white'
-                      : 'bg-blue-600 text-white'
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white'
+                      : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
                 }`}
               >
                 {message.text}
@@ -275,24 +300,26 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
             </div>
           ))}
           {isTyping && (
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-2 animate-fade-in">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                darkMode ? 'bg-cyan-500' : 'bg-blue-500'
+                darkMode 
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600' 
+                  : 'bg-gradient-to-r from-blue-500 to-blue-600'
               }`}>
                 <Bot className="h-4 w-4 text-white" />
               </div>
               <div className={`p-3 rounded-lg ${
-                darkMode ? 'bg-gray-800' : 'bg-slate-100'
+                darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-slate-100'
               }`}>
                 <div className="flex space-x-1">
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
+                    darkMode ? 'bg-blue-400' : 'bg-blue-500'
                   }`} style={{ animationDelay: '0ms' }}></div>
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
+                    darkMode ? 'bg-blue-400' : 'bg-blue-500'
                   }`} style={{ animationDelay: '150ms' }}></div>
                   <div className={`w-2 h-2 rounded-full animate-bounce ${
-                    darkMode ? 'bg-gray-400' : 'bg-slate-500'
+                    darkMode ? 'bg-blue-400' : 'bg-blue-500'
                   }`} style={{ animationDelay: '300ms' }}></div>
                 </div>
               </div>
@@ -301,10 +328,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
           <div ref={messagesEndRef} />
         </div>
         
-        {/* Sample questions */}
-        <div className={`px-4 py-2 overflow-x-auto ${darkMode ? 'bg-gray-800/80' : 'bg-slate-50/80'} flex gap-2 items-center`}>
-          <HelpCircle className={`h-4 w-4 shrink-0 ${darkMode ? 'text-gray-400' : 'text-slate-500'}`} />
-          <div className="flex gap-2 whitespace-nowrap">
+        {/* Sample questions - improved styling */}
+        <div className={`px-4 py-3 overflow-x-auto ${darkMode ? 'bg-gray-800/80 border-t border-gray-700' : 'bg-slate-50/80 border-t border-slate-200'} flex gap-2 items-center`}>
+          <HelpCircle className={`h-4 w-4 shrink-0 ${darkMode ? 'text-blue-400' : 'text-blue-500'}`} />
+          <div className="flex gap-2 whitespace-nowrap pb-1">
             {sampleQuestions.map((question) => (
               <Button 
                 key={question} 
@@ -313,9 +340,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
                 onClick={() => handleSampleQuestion(question)}
                 className={`text-xs ${
                   darkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 border-gray-600' 
-                    : 'bg-slate-200 hover:bg-slate-300 border-slate-300'
-                }`}
+                    ? 'bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300 hover:text-blue-200' 
+                    : 'bg-slate-200 hover:bg-slate-300 border-slate-300 text-blue-600'
+                } transition-all hover:scale-105`}
               >
                 {question}
               </Button>
@@ -323,7 +350,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
           </div>
         </div>
         
-        <div className={`flex gap-2 p-3 border-t ${darkMode ? 'bg-gray-800/90 border-gray-700' : 'bg-white border-gray-200'}`}>
+        <div className={`flex gap-2 p-4 border-t ${darkMode ? 'bg-gray-800/90 border-gray-700' : 'bg-white border-gray-200'}`}>
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
@@ -341,9 +368,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
             size="icon"
             className={`${
               darkMode 
-                ? 'bg-cyan-600 hover:bg-cyan-700' 
-                : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+                ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700' 
+                : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'
+            } transition-all hover:scale-105`}
           >
             <Send className="h-4 w-4" />
           </Button>
