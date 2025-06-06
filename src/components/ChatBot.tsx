@@ -1,8 +1,10 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Send, Bot, User } from 'lucide-react';
+import { toast } from 'sonner';
 import personalFaq from '../data/personal-faq.json';
 
 interface ChatBotProps {
@@ -37,69 +39,57 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Improved function to find answers from personal FAQ dataset
   function findPersonalAnswer(userMessage: string) {
     const lowerMsg = userMessage.toLowerCase();
-    // Ensure personalFaq is an array
-    const faqs = Array.isArray(personalFaq) ? personalFaq : [];
-    for (const faq of faqs) {
-      if (faq.question && lowerMsg.includes(faq.question.toLowerCase().split(' ')[2])) {
+    
+    // First try exact question matching
+    for (const faq of personalFaq) {
+      if (faq.question && lowerMsg.includes(faq.question.toLowerCase())) {
         return faq.answer;
       }
     }
+    
+    // If no exact match, try keyword matching
+    const keywords = lowerMsg.split(/\s+/);
+    const matches = personalFaq.filter(faq => {
+      if (!faq.question) return false;
+      const questionLower = faq.question.toLowerCase();
+      // Check if at least 2 significant keywords match
+      return keywords.filter(word => 
+        word.length > 3 && questionLower.includes(word)
+      ).length >= 2;
+    });
+    
+    if (matches.length > 0) {
+      // Return the best match (can be improved with more sophisticated scoring)
+      return matches[0].answer;
+    }
+    
     return null;
   }
 
   const getBotResponse = async (userMessage: string): Promise<string> => {
     // List of offensive or sensitive keywords/phrases
     const offensiveKeywords = [
-      'offensive',
-      'hate',
-      'stupid',
-      'idiot',
-      'dumb',
-      'kill',
-      'suicide',
-      'racist',
-      'sex',
-      'sexual',
-      'porn',
-      'drugs',
-      'violence',
-      'terrorist',
-      'bomb',
-      'attack',
-      'kill yourself',
-      'fuck',
-      'shit',
-      'bitch',
-      'asshole',
-      'dick',
-      'pussy',
-      'nigger',
-      'faggot',
-      'cunt',
-      'slut',
-      'whore',
-      'personal question',
-      'too personal',
-      'sensitive question',
-      'inappropriate',
-      'private',
-      'confidential'
+      'offensive', 'hate', 'stupid', 'idiot', 'dumb', 'kill', 'suicide', 
+      'racist', 'sex', 'sexual', 'porn', 'drugs', 'violence', 'terrorist', 
+      'bomb', 'attack', 'kill yourself', 'fuck', 'shit', 'bitch', 'asshole', 
+      'dick', 'pussy', 'nigger', 'faggot', 'cunt', 'slut', 'whore', 
+      'personal question', 'too personal', 'sensitive question', 'inappropriate', 
+      'private', 'confidential'
     ];
 
     const lowerMessage = userMessage.toLowerCase();
 
     // Check if message contains offensive or sensitive keywords
     if (offensiveKeywords.some(keyword => lowerMessage.includes(keyword))) {
-      // Return a polite, careful response from FAQ or custom message
       const politeResponses = [
         "I am here to help and provide respectful and positive interactions. Let's keep the conversation friendly and constructive.",
         "I respect your privacy and will only share information that is appropriate and comfortable. If a question is too personal, I may politely decline to answer.",
         "Please keep the conversation respectful. I am here to assist with relevant questions and provide helpful information.",
         "I encourage positive and respectful communication. Offensive language is not tolerated and may result in ending the conversation."
       ];
-      // Return a random polite response
       return politeResponses[Math.floor(Math.random() * politeResponses.length)];
     }
 
@@ -107,52 +97,58 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     const personal = findPersonalAnswer(userMessage);
     if (personal) return personal;
 
-    const message = lowerMessage;
-
-    // Rudra-specific Q&A
-    if (message.includes('skill') || message.includes('technology')) {
+    // If no personal answer found, process common questions
+    if (lowerMessage.includes('skill') || lowerMessage.includes('technology')) {
       return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more. He specializes in computer vision and AI-based systems!";
     }
-    if (message.includes('project')) {
+    if (lowerMessage.includes('project')) {
       return "Rudra has worked on exciting projects like People Counting Bot with YOLOv6, Hand Gesture Recognition with TensorFlow, and EmployedIN web app. Check out his GitHub for more details!";
     }
-    if (message.includes('experience') || message.includes('internship')) {
+    if (lowerMessage.includes('experience') || lowerMessage.includes('internship')) {
       return "Rudra interned as an ML Engineer at Aivid Techvision, working on surveillance products using Python and OpenCV for real-time video analysis.";
     }
-    if (message.includes('education') || message.includes('study') || message.includes('college')) {
+    if (lowerMessage.includes('education') || lowerMessage.includes('study') || lowerMessage.includes('college')) {
       return "Rudra is pursuing B.Tech in Computer Science Engineering at SVKM NMIMS Shirpur with a CGPA of 3.6/4. He excelled in his previous studies with 91.2% in Class XII and 95.6% in Class X.";
     }
-    if (message.includes('achievement') || message.includes('award') || message.includes('prize')) {
+    if (lowerMessage.includes('achievement') || lowerMessage.includes('award') || lowerMessage.includes('prize')) {
       return "Rudra won 1st Prize in NMMUN debate for two consecutive years and 2nd Prize in CodeKraken Hackathon 2024. He's also a community leader and founder!";
     }
-    if (message.includes('leadership') || message.includes('community')) {
+    if (lowerMessage.includes('leadership') || lowerMessage.includes('community')) {
       return "Rudra is passionate about community building! He was Event Management Lead at GDSC, Planning Head at Coding Club, and founded STU Reach for student support.";
     }
-    if (message.includes('contact') || message.includes('email') || message.includes('reach')) {
+    if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
       return "You can reach Rudra at rudrakabrawala@gmail.com or connect on LinkedIn at linkedin.com/in/rudrakabrawala. He's also on Instagram and Spotify!";
     }
-    if (message.includes('music') || message.includes('football') || message.includes('hobby')) {
+    if (lowerMessage.includes('music') || lowerMessage.includes('football') || lowerMessage.includes('hobby')) {
       return "Rudra loves music and is a football enthusiast! These interests keep him balanced alongside his tech pursuits.";
     }
-    if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
       return "Hello! I'm here to help you learn more about Rudra Kabrawala. What would you like to know about his skills, projects, or experience?";
     }
-    if (message.includes('resume') || message.includes('cv')) {
+    if (lowerMessage.includes('resume') || lowerMessage.includes('cv')) {
       return "You can download Rudra's resume directly from the website using the 'Download Resume' button in the hero section!";
     }
 
     // For general or unrelated questions, use OpenAI GPT API
     try {
+      console.log("Calling OpenAI API with prompt:", userMessage);
       const response = await fetch('/api/gpt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: userMessage })
+        body: JSON.stringify({ prompt: `Answer this question about Rudra Kabrawala based on his personal information: ${userMessage}` })
       });
-      if (!response.ok) throw new Error('API error');
+      
+      if (!response.ok) {
+        console.error("API Error:", response.status);
+        throw new Error('API error');
+      }
+      
       const data = await response.json();
-      return data.reply || "Sorry, I couldn't get a response from GPT.";
+      console.log("OpenAI API response:", data);
+      return data.reply || "I couldn't find specific information about that. Would you like to know about Rudra's skills, projects, or experience instead?";
     } catch (err) {
-      return "Sorry, I couldn't get a response from GPT.";
+      console.error("Error calling OpenAI API:", err);
+      return "I'm having trouble connecting to my knowledge base right now. Could you ask me something about Rudra's skills, projects, or experience instead?";
     }
   };
 
@@ -170,15 +166,27 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     setInputMessage('');
     setIsTyping(true);
 
-    const botText = await getBotResponse(inputMessage);
-    const botResponse: Message = {
-      id: messages.length + 2,
-      text: botText,
-      isBot: true,
-      timestamp: new Date()
-    };
-    setMessages(prev => [...prev, botResponse]);
-    setIsTyping(false);
+    try {
+      const botText = await getBotResponse(inputMessage);
+      const botResponse: Message = {
+        id: messages.length + 2,
+        text: botText,
+        isBot: true,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+      console.error("Error getting bot response:", error);
+      toast.error("Sorry, I had trouble processing your question.");
+      setMessages(prev => [...prev, {
+        id: messages.length + 2,
+        text: "Sorry, I had trouble processing your question. Please try again.",
+        isBot: true,
+        timestamp: new Date()
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
