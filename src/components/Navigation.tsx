@@ -94,36 +94,43 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Theme Toggle Button with improved visibility */}
+            {/* Enhanced Theme Toggle Button with improved visibility */}
             <Button
-              variant={darkMode ? "outline" : "outline"}
+              variant="outline"
               onClick={() => setDarkMode(!darkMode)}
               className={`ml-3 p-2 rounded-full transition-all duration-300 hover:scale-110 relative group ${
                 darkMode 
-                  ? 'text-yellow-300 border-gray-700 hover:text-yellow-200 hover:bg-gray-800 hover:border-gray-600' 
-                  : 'text-gray-600 border-gray-300 hover:text-yellow-600 hover:bg-gray-100 hover:border-gray-400'
+                  ? 'bg-gray-800 text-yellow-300 border-yellow-700/50 hover:text-yellow-200 hover:bg-gray-700 hover:border-yellow-600/50 hover:shadow-lg hover:shadow-yellow-900/20' 
+                  : 'bg-gray-100 text-amber-600 border-amber-300/50 hover:text-amber-500 hover:bg-gray-200 hover:border-amber-400/50 hover:shadow-md hover:shadow-amber-200/30'
               }`}
               aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
-              <div className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 transition-opacity ${
-                darkMode ? 'bg-yellow-400' : 'bg-yellow-500'
+              <div className={`absolute inset-0 rounded-full opacity-30 group-hover:opacity-40 transition-opacity ${
+                darkMode ? 'bg-yellow-500/20' : 'bg-amber-400/20'
               }`}></div>
               {darkMode ? 
                 <Sun className="h-5 w-5 relative z-10" /> : 
                 <Moon className="h-5 w-5 relative z-10" />
               }
+              <span className={`absolute -right-16 px-2 py-1 rounded-md text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity ${
+                darkMode 
+                ? 'bg-gray-700 text-yellow-300' 
+                : 'bg-gray-200 text-amber-700'
+              }`}>
+                {darkMode ? 'Light mode' : 'Dark mode'}
+              </span>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
             <Button
-              variant={darkMode ? "outline" : "outline"}
+              variant="outline"
               onClick={() => setDarkMode(!darkMode)}
               className={`p-2 rounded-full transition-all duration-300 ${
                 darkMode 
-                  ? 'text-yellow-300 border-gray-700' 
-                  : 'text-gray-600 border-gray-300'
+                  ? 'bg-gray-800 text-yellow-300 border-yellow-700/50 hover:bg-gray-700' 
+                  : 'bg-gray-100 text-amber-600 border-amber-300/50 hover:bg-gray-200'
               }`}
               aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
@@ -135,8 +142,8 @@ const Navigation: React.FC<NavigationProps> = ({ darkMode, setDarkMode }) => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`p-2 rounded-lg transition-all duration-300 ${
                 darkMode 
-                  ? 'text-gray-300 border-gray-700' 
-                  : 'text-gray-600 border-gray-300'
+                  ? 'text-gray-300 border-gray-700 hover:bg-gray-800' 
+                  : 'text-gray-600 border-gray-300 hover:bg-gray-100'
               }`}
               aria-label="Toggle menu"
             >

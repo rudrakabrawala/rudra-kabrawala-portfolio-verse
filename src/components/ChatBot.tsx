@@ -49,20 +49,32 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   function findPersonalAnswer(userMessage: string) {
     const lowerMsg = userMessage.toLowerCase();
     
-    // Location/residence specific question handling - direct match for important questions
+    // Direct answers for common questions to ensure accuracy
+    
+    // Skills specific questions - fixed accurate response
+    if (lowerMsg.includes("skill") || lowerMsg.includes("good at") || lowerMsg.includes("knows") || lowerMsg.includes("expertise")) {
+      return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, PL/SQL, Web-Scraping, and Excel. He specializes in computer vision and AI-based systems.";
+    }
+    
+    // Location specific questions
     if (lowerMsg.includes("where") && 
         (lowerMsg.includes("live") || lowerMsg.includes("stay") || lowerMsg.includes("from") || lowerMsg.includes("location") || lowerMsg.includes("he live"))) {
       return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
     }
     
-    // Skills specific questions
-    if (lowerMsg.includes("skill") || lowerMsg.includes("good at") || lowerMsg.includes("knows") || lowerMsg.includes("expertise")) {
-      return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more. He specializes in computer vision and AI-based systems. He is also experienced in web development, data analysis, and community leadership.";
-    }
-    
-    // Hobbies specific questions
+    // Hobbies specific questions - added football
     if (lowerMsg.includes("hobby") || lowerMsg.includes("hobbies") || lowerMsg.includes("free time") || lowerMsg.includes("interest")) {
-      return "Rudra enjoys writing, cooking, exploring new technologies, and mentoring students. He's also passionate about football - both watching and playing!";
+      return "Rudra enjoys writing, cooking, exploring new technologies, mentoring students, and football - both watching and playing!";
+    }
+
+    // Education specific questions
+    if (lowerMsg.includes("education") || lowerMsg.includes("study") || lowerMsg.includes("school") || lowerMsg.includes("college")) {
+      return "Rudra is pursuing B.Tech in Computer Science Engineering at SVKM NMIMS Shirpur with a CGPA of 3.6/4. He completed Class XII with 91.2% and Class X with 95.6% at Sanskar Vidya Bhavan, Bharuch.";
+    }
+
+    // Projects specific questions
+    if (lowerMsg.includes("project")) {
+      return "Rudra has worked on several projects including: Hand Gesture Recognition using Python, OpenCV, MediaPipe, and TensorFlow; People Counting Bot for video surveillance using OpenCV and YOLOv6; and EmployedIN web app to connect daily wage workers with job opportunities.";
     }
 
     // Try exact question matching from FAQ
@@ -126,13 +138,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
 
     // If no personal answer found, process common questions
     if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage.includes('good at')) {
-      return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more. He specializes in computer vision and AI-based systems!";
+      return "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, PL/SQL, Web-Scraping, and Excel. He specializes in computer vision and AI-based systems.";
     }
     if (lowerMessage.includes('project')) {
       return "Rudra has worked on exciting projects like People Counting Bot with YOLOv6, Hand Gesture Recognition with TensorFlow, and EmployedIN web app. Check out his GitHub for more details!";
     }
     if (lowerMessage.includes('hobby') || lowerMessage.includes('hobbies') || lowerMessage.includes('interests') || lowerMessage.includes('football')) {
-      return "Rudra enjoys writing, cooking, exploring new technologies, mentoring students, and playing football! He's passionate about the sport and follows it closely.";
+      return "Rudra enjoys writing, cooking, exploring new technologies, mentoring students, and football - both watching and playing!";
     }
     if (lowerMessage.includes('experience') || lowerMessage.includes('internship')) {
       return "Rudra interned as an ML Engineer at Aivid Techvision, working on surveillance products using Python and OpenCV for real-time video analysis.";
@@ -147,7 +159,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       return "Rudra is passionate about community building! He was Event Management Lead at GDSC, Planning Head at Coding Club, and founded STU Reach for student support.";
     }
     if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
-      return "You can reach Rudra at rudrakabrawala@gmail.com or connect on LinkedIn at linkedin.com/in/rudrakabrawala. He's also on Instagram and Spotify!";
+      return "You can reach Rudra at rudrakabrawala@gmail.com or connect on LinkedIn at linkedin.com/in/rudrakabrawala.";
     }
     if (lowerMessage.includes('live') || lowerMessage.includes('from') || lowerMessage.includes('location')) {
       return "Rudra is from Bharuch, Gujarat, India. He's currently studying at SVKM NMIMS in Shirpur, Maharashtra.";
@@ -168,7 +180,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
         body: JSON.stringify({ 
           prompt: `Answer this question about Rudra Kabrawala based on his personal information. 
           Rudra is from Bharuch, Gujarat, India and currently studying at SVKM NMIMS in Shirpur, Maharashtra.
-          His skills include Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and AI systems.
+          His skills include Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, PL/SQL, Web-Scraping, and Excel.
           He enjoys writing, cooking, football, exploring new technologies, and mentoring students.
           Be accurate, precise, and keep responses under 100 words: ${userMessage}` 
         })
