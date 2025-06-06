@@ -1,0 +1,338 @@
+[
+  {
+    "question": "What is Rudra's email?",
+    "answer": "You can reach Rudra at rudrakabrawala@gmail.com."
+  },
+  {
+    "question": "What are Rudra's skills?",
+    "answer": "Rudra is skilled in Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, and more."
+  },
+  {
+    "question": "What is Rudra's education?",
+    "answer": "Rudra is pursuing B.Tech in Computer Science Engineering at SVKM NMIMS Shirpur with a CGPA of 3.6/4."
+  },
+  {
+    "question": "What are Rudra's achievements?",
+    "answer": "Rudra won 1st Prize in NMMUN debate for two consecutive years and 2nd Prize in CodeKraken Hackathon 2024."
+  },
+  {
+    "question": "How can I contact Rudra?",
+    "answer": "You can contact Rudra at rudrakabrawala@gmail.com or on LinkedIn at linkedin.com/in/rudrakabrawala."
+  },
+  {
+    "question": "What is Rudra's email?",
+    "answer": "You can reach Rudra at rudra.kabrawala012@nmims.in."
+  },
+  {
+    "question": "What is Rudra's phone number?",
+    "answer": "Rudra's phone number is +91 7383667120."
+  },
+  {
+    "question": "Where is Rudra located?",
+    "answer": "Rudra is based in Bharuch, Gujarat."
+  },
+  {
+    "question": "What is Rudra's LinkedIn profile?",
+    "answer": "You can connect with Rudra on LinkedIn at linkedin.com/in/rudrakabrawala."
+  },
+  {
+    "question": "What is Rudra's full name?",
+    "answer": "Rudra's full name is Rudra Kabrawala."
+  },
+  {
+    "question": "Where did Rudra study for his Bachelor's degree?",
+    "answer": "Rudra is pursuing his Bachelor's degree at SVKM NMIMS Shirpur."
+  },
+  {
+    "question": "What degree is Rudra pursuing?",
+    "answer": "Rudra is pursuing a Bachelor of Technology in Computer Science Engineering."
+  },
+  {
+    "question": "What is Rudra's CGPA?",
+    "answer": "Rudra's current CGPA is 3.6 out of 4."
+  },
+  {
+    "question": "Where did Rudra complete his Class XII?",
+    "answer": "Rudra completed Class XII at Sanskar Vidya Bhavan, Bharuch, Gujarat."
+  },
+  {
+    "question": "What percentage did Rudra score in Class XII?",
+    "answer": "Rudra scored 91.2% in Class XII."
+  },
+  {
+    "question": "Where did Rudra complete his Class X?",
+    "answer": "Rudra completed Class X at Sanskar Vidya Bhavan, Bharuch, Gujarat."
+  },
+  {
+    "question": "What percentage did Rudra score in Class X?",
+    "answer": "Rudra scored 95.6% in Class X."
+  },
+  {
+    "question": "Where did Rudra intern?",
+    "answer": "Rudra interned at Aivid Techvision."
+  },
+  {
+    "question": "What was Rudra's role during his internship?",
+    "answer": "Rudra was an ML Intern (On-Site) at Aivid Techvision."
+  },
+  {
+    "question": "What technologies did Rudra use during his internship?",
+    "answer": "During his internship, Rudra used Python and OpenCV for surveillance and monitoring products."
+  },
+  {
+    "question": "What kind of projects did Rudra work on during his internship?",
+    "answer": "Rudra worked on implementing computer vision algorithms for real-time video analysis and object detection."
+  },
+  {
+    "question": "What projects has Rudra worked on?",
+    "answer": "Rudra has worked on Hand Gesture Recognition, People Counting Bot, and EmployedIN projects."
+  },
+  {
+    "question": "Tell me about Rudra's Hand Gesture Recognition project.",
+    "answer": "Rudra built a real-time hand gesture recognition system for human-computer interaction using Python, OpenCV, MediaPipe, and TensorFlow."
+  },
+  {
+    "question": "What technologies were used in the Hand Gesture Recognition project?",
+    "answer": "The Hand Gesture Recognition project used Python, OpenCV, MediaPipe, and TensorFlow."
+  },
+  {
+    "question": "Tell me about the People Counting Bot project.",
+    "answer": "Rudra developed a real-time people counting system for video surveillance using OpenCV, OpenVINO, and YOLOv6. He also integrated MQTT for live event publishing, Elasticsearch for event logging, and Flask REST API for integration."
+  },
+  {
+    "question": "What technologies were used in the People Counting Bot project?",
+    "answer": "The People Counting Bot project used Python, OpenCV, OpenVINO, YOLOv6, MQTT, Elasticsearch, and Flask API."
+  },
+  {
+    "question": "What is the purpose of the People Counting Bot?",
+    "answer": "The People Counting Bot is designed for real-time crowd monitoring and management in smart environments."
+  },
+  {
+    "question": "Tell me about the EmployedIN project.",
+    "answer": "EmployedIN is a web app created by Rudra to connect daily wage workers with job opportunities."
+  },
+  {
+    "question": "What technologies were used in the EmployedIN project?",
+    "answer": "The EmployedIN project used HTML, CSS, JavaScript, and MySQL."
+  },
+  {
+    "question": "What certifications does Rudra have?",
+    "answer": "Rudra has completed the Tata Group Data Analytics Job Simulation certification on Forage."
+  },
+  {
+    "question": "Tell me about the Tata Group Data Analytics Job Simulation certification.",
+    "answer": "Rudra conducted exploratory data analysis using GenAI tools and designed an AI-driven collections strategy leveraging agentic AI and automation."
+  },
+  {
+    "question": "What programming languages does Rudra know?",
+    "answer": "Rudra knows C++, Python, HTML, CSS, and JavaScript."
+  },
+  {
+    "question": "What technologies and frameworks is Rudra familiar with?",
+    "answer": "Rudra is familiar with MySQL, PL/SQL, OpenCV, Machine Learning, Excel, and Web-Scraping."
+  },
+  {
+    "question": "What relevant coursework has Rudra completed?",
+    "answer": "Rudra has completed coursework in Data Structures and Algorithms, Operating Systems, Database Management System, Object Oriented Programming, and Cybersecurity."
+  },
+  {
+    "question": "What are Rudra's achievements?",
+    "answer": "Rudra has won 1st Prize in Model UN debate at NMMUN Shirpur (2023–24, 2024–25) and 2nd Prize at CodeKraken Hackathon 2024."
+  },
+  {
+    "question": "What awards has Rudra won?",
+    "answer": "Rudra won 1st Prize in Model UN debate at NMMUN Shirpur and 2nd Prize at CodeKraken Hackathon 2024."
+  },
+  {
+    "question": "What leadership roles has Rudra held?",
+    "answer": "Rudra has served as Event Management Lead at GDSC NMIMS Shirpur, Planning & Strategy Head at the Coding Club, and Community Founder of STU Reach."
+  },
+  {
+    "question": "What extracurricular activities is Rudra involved in?",
+    "answer": "Rudra is involved in organizing technical events, coding competitions, and founding student communities."
+  },
+  {
+    "question": "Tell me about Rudra's role in GDSC NMIMS Shirpur.",
+    "answer": "Rudra was the Event Management Lead at GDSC NMIMS Shirpur, where he organized technical events and enhanced club visibility."
+  },
+  {
+    "question": "What is STU Reach?",
+    "answer": "STU Reach is a student-centric community founded by Rudra for academic and skill-building support."
+  },
+  {
+    "question": "How can I contact Rudra?",
+    "answer": "You can contact Rudra via email at rudra.kabrawala012@nmims.in or by phone at +91 7383667120. You can also connect on LinkedIn at linkedin.com/in/rud1666rawala."
+  },
+  {
+    "question": "What is Rudra passionate about?",
+    "answer": "Rudra is passionate about using technology to solve real-world problems, empowering communities, and continuous learning."
+  },
+  {
+    "question": "What are Rudra's interests outside of work?",
+    "answer": "Outside of work, Rudra enjoys exploring new1686 technologies, contributing to open-source projects, mentoring students, writing, and cooking."
+  },
+  {
+    "question": "Is Rudra open to collaboration?",
+    "answer": "Yes, Rudra is open to collaboration on innovative projects, especially in machine learning, computer vision, and community initiatives."
+  },
+  {
+    "question": "Where can I find Rudra's portfolio?",
+    "answer": "You can find Rudra's portfolio at https://rudra-kabrawala-portfolio-verse.lovable.app/."
+  },
+  {
+    "question": "Does Rudra contribute to open-source projects?",
+    "answer": "Yes, Rudra actively contributes to open-source projects and community-driven initiatives."
+  },
+  {
+    "question": "What is Rudra's approach to learning and growth?",
+    "answer": "Rudra believes in lifelong learning, collaborative problem-solving, and sharing knowledge with others."
+  },
+  {
+    "question": "What is Rudra's professional identity?",
+    "answer": "Rudra is a Machine Learning Engineer and Business Analyst with a passion for AI and community collaboration."
+  },
+  {
+    "question": "What does Rudra work on in object detection?",
+    "answer": "Rudra works on improving object detection systems, focusing on visualization and tracking multiple objects."
+  },
+  {
+    "question": "What community service activities does Rudra participate in?",
+    "answer": "Rudra loves helping street dogs, celebrates his birthday lunch in an orphanage, and helps students with academic and non-academic problems."
+  },
+  {
+    "question": "How does Rudra celebrate his birthday?",
+    "answer": "Rudra celebrates his birthday by having lunch in an orphanage and helping the community."
+  },
+  {
+    "question": "Does Rudra help students?",
+    "answer": "Yes, Rudra loves helping students with both academic and non-academic problems."
+  },
+  {
+    "question": "What kind of community service is Rudra involved in?",
+    "answer": "Rudra is involved in helping street dogs, supporting orphanages, and mentoring students."
+  },
+  {
+    "question": "Where does Rudra do his community service?",
+    "answer": "Rudra helps street dogs and orphanages in his local community and supports students."
+  },
+  {
+    "question": "What were Rudra's Class 10 results?",
+    "answer": "Rudra scored 95.6% in Class 10."
+  },
+  {
+    "question": "What were Rudra's Class 12 results?",
+    "answer": "Rudra scored 91.2% in Class 12."
+  },
+  {
+    "question": "What are Rudra's semester grades?",
+    "answer": "Rudra's semester grades are: Sem 1: 3.56/4, Sem 2: 3.93/4, Sem 3: 3.35/4, Sem 4: 3.63/4, Sem 5: 3.61/4, Sem 6: 3.52/4."
+  },
+  {
+    "question": "When and where was Rudra born?",
+    "answer": "Rudra was born on 2nd July 2004 in Bharuch, Gujarat."
+  },
+  {
+    "question": "Where is Rudra's hometown?",
+    "answer": "Rudra's hometown is Gujarat."
+  },
+  {
+    "question": "Is Rudra willing to work anywhere?",
+    "answer": "Yes, Rudra is ready to work anywhere."
+  },
+  {
+    "question": "What are Rudra's favorite community service activities?",
+    "answer": "Rudra especially enjoys helping street dogs, celebrating his birthday lunch in an orphanage, and mentoring students."
+  },
+  {
+    "question": "How often does Rudra participate in community service?",
+    "answer": "Rudra regularly helps street dogs, celebrates his birthday at an orphanage, and supports students throughout the year."
+  },
+  {
+    "question": "What motivates Rudra to help street dogs?",
+    "answer": "Rudra cares deeply about animal welfare and wants to make a positive impact in his community."
+  },
+  {
+    "question": "Does Rudra mentor students outside of his college?",
+    "answer": "Yes, Rudra is open to mentoring students from any background, both inside and outside his college."
+  },
+  {
+    "question": "What advice does Rudra give to students?",
+    "answer": "Rudra encourages students to stay curious, ask questions, and support each other in their learning journeys."
+  },
+  {
+    "question": "What does Rudra do at orphanages?",
+    "answer": "Rudra spends time with children at orphanages, shares meals, and organizes activities to bring joy and support."
+  },
+  {
+    "question": "What if someone uses offensive language?",
+    "answer": "I am here to help and provide respectful and positive interactions. Let's keep the conversation friendly and constructive."
+  },
+  {
+    "question": "How do you handle personal or sensitive1686 questions?",
+    "answer": "I respect your privacy and will only share information that is appropriate and comfortable. If a question is too personal, I may politely decline to answer."
+  },
+  {
+    "question": "What if I ask something inappropriate?",
+    "answer": "Please keep the conversation respectful. I am here to assist with relevant questions and provide helpful information."
+  },
+  {
+    "question": "Can you answer very personal questions?",
+    "answer": "I prefer to keep personal information private and focus on professional and relevant topics."
+  },
+  {
+    "question": "What happens if I use offensive words?",
+    "answer": "I encourage positive and respectful communication. Offensive language is not tolerated and may result in ending the conversation."
+  },
+  {
+    "question": "How does Rudra balance academics and community service?",
+    "answer": "Rudra manages his time effectively to excel in academics while actively participating in community service."
+  },
+  {
+    "question": "What are Rudra's hobbies?",
+    "answer": "Rudra enjoys writing, cooking, exploring new technologies, and mentoring students."
+  },
+  {
+    "question": "Does Rudra have any pets?",
+    "answer": "Rudra loves animals and cares for street dogs, though currently does not have a pet of his own."
+  },
+  {
+    "question": "What kind of events does Rudra organize?",
+    "answer": "Rudra organizes technical events, coding competitions, and community-building activities."
+  },
+  {
+    "question": "How can students reach out to Rudra for help?",
+    "answer": "Students can contact Rudra via email or LinkedIn for academic or non-academic support."
+  },
+  {
+    "question": "What is Rudra's favorite part of community service?",
+    "answer": "Rudra finds joy in making a difference—whether it's helping animals, supporting children, or mentoring students."
+  },
+  {
+    "question": "Does Rudra participate in any environmental initiatives?",
+    "answer": "While Rudra is passionate about helping animals and people, he is also open to environmental causes."
+  },
+  {
+    "question": "What are Rudra's future goals in community service?",
+    "answer": "Rudra aims to expand his impact by starting more initiatives for animals, children, and students."
+  },
+  {
+    "question": "What inspires Rudra to help others?",
+    "answer": "Rudra is inspired by the belief that everyone can make a positive difference in the world."
+  },
+  {
+    "question": "How does Rudra encourage others to participate in community service?",
+    "answer": "Rudra leads by example and encourages others to find causes they care about and take action."
+  },
+  {
+    "question": "What is Rudra's favorite technology project?",
+    "answer": "Rudra enjoys working on projects that combine AI, computer vision, and real-world impact."
+  },
+  {
+    "question": "Does Rudra write about his experiences?",
+    "answer": "Yes, Rudra enjoys writing about technology, community service, and personal growth."
+  },
+  {
+    "question": "What is Rudra's advice for aspiring technologists?",
+    "answer": "Rudra advises aspiring technologists to stay curious, collaborate, and use their skills to help others."
+  }
+]

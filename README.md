@@ -1,8 +1,12 @@
 # Welcome to your Lovable project
 
+## Live Site
+
+**URL**: https://rudra-kabrawala-portfolio-verse.lovable.app/
+
 ## Project info
 
-**URL**: https://lovable.dev/projects/1fa3bde9-b824-4344-937e-3607a0b849ba
+**Lovable Project URL**: https://lovable.dev/projects/1fa3bde9-b824-4344-937e-3607a0b849ba
 
 ## How can I edit this code?
 
