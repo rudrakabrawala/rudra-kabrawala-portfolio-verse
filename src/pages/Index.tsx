@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,7 @@ const Index = () => {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      document.body.style.background = 'linear-gradient(135deg, #111827 0%, #1F2937 50%, #374151 100%)';
+      document.body.style.background = 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2a2a2a 100%)';
     } else {
       document.documentElement.classList.remove('dark');
       document.body.style.background = 'linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 50%, #E5E7EB 100%)';
@@ -31,17 +32,17 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${darkMode ? 'dark' : ''}`}>
-      {/* Simplified background without heavy animations */}
+      {/* Background with improved mobile support */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div className={`absolute inset-0 transition-all duration-500 ${darkMode 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700' 
+          ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' 
           : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200'
         }`}>
           {/* Subtle gradient orbs without animations */}
-          <div className={`absolute top-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-5 ${
+          <div className={`absolute top-1/4 right-1/4 w-32 md:w-64 h-32 md:h-64 rounded-full blur-3xl opacity-5 ${
             darkMode ? 'bg-gradient-to-r from-gray-600 to-gray-700' : 'bg-gradient-to-r from-gray-300 to-gray-400'
           }`}></div>
-          <div className={`absolute bottom-1/4 left-1/3 w-48 h-48 rounded-full blur-3xl opacity-5 ${
+          <div className={`absolute bottom-1/4 left-1/3 w-24 md:w-48 h-24 md:h-48 rounded-full blur-3xl opacity-5 ${
             darkMode ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-gray-400 to-gray-500'
           }`}></div>
         </div>
@@ -49,73 +50,73 @@ const Index = () => {
 
       <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      {/* Main Content */}
-      <div className="relative z-10">
+      {/* Main Content with better mobile alignment */}
+      <div className="relative z-10 w-full">
         <Hero darkMode={darkMode} />
         <About darkMode={darkMode} />
 
-        {/* Education Timeline */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        {/* Education Timeline with improved mobile layout */}
+        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className={`text-4xl font-bold text-center mb-12 ${
+            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 ${
               darkMode ? 'text-white' : 'text-gray-800'
             }`}>
               Education
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8">
               <div className={`border-l-4 ${
                 darkMode ? 'border-blue-400' : 'border-gray-700'
-              } pl-8 relative`}>
-                <div className={`absolute -left-3 top-0 w-6 h-6 rounded-full ${
+              } pl-6 md:pl-8 relative`}>
+                <div className={`absolute -left-2 md:-left-3 top-0 w-4 h-4 md:w-6 md:h-6 rounded-full ${
                   darkMode ? 'bg-blue-400' : 'bg-gray-700'
                 }`}></div>
-                <h3 className={`text-xl font-semibold ${
+                <h3 className={`text-lg md:text-xl font-semibold ${
                   darkMode ? 'text-white' : 'text-gray-800'
                 }`}>
                   Bachelor of Technology in Computer Science Engineering
                 </h3>
-                <p className={`${darkMode ? 'text-blue-400' : 'text-gray-700'} font-medium`}>
+                <p className={`${darkMode ? 'text-blue-400' : 'text-gray-700'} font-medium text-sm md:text-base`}>
                   SVKM NMIMS Shirpur
                 </p>
-                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-xs md:text-sm`}>
                   2022 – 2026 | CGPA: 3.6/4
                 </p>
               </div>
               
               <div className={`border-l-4 ${
                 darkMode ? 'border-cyan-400' : 'border-gray-600'
-              } pl-8 relative`}>
-                <div className={`absolute -left-3 top-0 w-6 h-6 rounded-full ${
+              } pl-6 md:pl-8 relative`}>
+                <div className={`absolute -left-2 md:-left-3 top-0 w-4 h-4 md:w-6 md:h-6 rounded-full ${
                   darkMode ? 'bg-cyan-400' : 'bg-gray-600'
                 }`}></div>
-                <h3 className={`text-xl font-semibold ${
+                <h3 className={`text-lg md:text-xl font-semibold ${
                   darkMode ? 'text-white' : 'text-gray-800'
                 }`}>
                   Class XII - PCM
                 </h3>
-                <p className={`${darkMode ? 'text-cyan-400' : 'text-gray-600'} font-medium`}>
+                <p className={`${darkMode ? 'text-cyan-400' : 'text-gray-600'} font-medium text-sm md:text-base`}>
                   Sanskar Vidya Bhavan, Bharuch
                 </p>
-                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-xs md:text-sm`}>
                   2021 – 2022 | Percentage: 91.2%
                 </p>
               </div>
               
               <div className={`border-l-4 ${
                 darkMode ? 'border-blue-500' : 'border-black'
-              } pl-8 relative`}>
-                <div className={`absolute -left-3 top-0 w-6 h-6 rounded-full ${
+              } pl-6 md:pl-8 relative`}>
+                <div className={`absolute -left-2 md:-left-3 top-0 w-4 h-4 md:w-6 md:h-6 rounded-full ${
                   darkMode ? 'bg-blue-500' : 'bg-black'
                 }`}></div>
-                <h3 className={`text-xl font-semibold ${
+                <h3 className={`text-lg md:text-xl font-semibold ${
                   darkMode ? 'text-white' : 'text-gray-800'
                 }`}>
                   Class X - SSC
                 </h3>
-                <p className={`${darkMode ? 'text-blue-400' : 'text-black'} font-medium`}>
+                <p className={`${darkMode ? 'text-blue-400' : 'text-black'} font-medium text-sm md:text-base`}>
                   Sanskar Vidya Bhavan, Bharuch
                 </p>
-                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-xs md:text-sm`}>
                   2019 – 2020 | Percentage: 95.6%
                 </p>
               </div>
@@ -123,28 +124,28 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Experience Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        {/* Experience Section with improved mobile layout */}
+        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className={`text-4xl font-bold text-center mb-12 ${
+            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 ${
               darkMode ? 'text-white' : 'text-gray-800'
             }`}>
               Experience
             </h2>
             <Card className={`${
               darkMode 
-                ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' 
+                ? 'bg-gray-900/50 border-gray-700 backdrop-blur-sm' 
                 : 'bg-white/70 border-gray-200 backdrop-blur-sm'
             } transition-all duration-300 hover:scale-105`}>
               <CardHeader>
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                   <div>
-                    <CardTitle className={`text-xl ${
+                    <CardTitle className={`text-lg md:text-xl ${
                       darkMode ? 'text-white' : 'text-gray-800'
                     }`}>
                       ML Intern (On-Site)
                     </CardTitle>
-                    <CardDescription className={`text-lg font-medium ${
+                    <CardDescription className={`text-base md:text-lg font-medium ${
                       darkMode ? 'text-blue-400' : 'text-gray-700'
                     }`}>
                       Aivid Techvision
@@ -152,13 +153,13 @@ const Index = () => {
                   </div>
                   <Badge variant="secondary" className={`${
                     darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
-                  }`}>
+                  } text-xs md:text-sm`}>
                     May 2025 – July 2025
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className={`space-y-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <ul className={`space-y-2 text-sm md:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   <li>• Worked on surveillance and monitoring products using Python and OpenCV</li>
                   <li>• Implemented computer vision algorithms for real-time video analysis and object detection</li>
                 </ul>
@@ -172,28 +173,28 @@ const Index = () => {
         <Interests darkMode={darkMode} />
         <Achievements darkMode={darkMode} />
 
-        {/* Certifications Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        {/* Certifications Section with improved mobile layout */}
+        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className={`text-4xl font-bold text-center mb-12 ${
+            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 ${
               darkMode ? 'text-white' : 'text-gray-800'
             }`}>
               Certifications
             </h2>
             <Card className={`${
               darkMode 
-                ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' 
+                ? 'bg-gray-900/50 border-gray-700 backdrop-blur-sm' 
                 : 'bg-white/70 border-gray-200 backdrop-blur-sm'
             } transition-all duration-300 hover:scale-105`}>
               <CardHeader>
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                   <div>
-                    <CardTitle className={`text-xl ${
+                    <CardTitle className={`text-lg md:text-xl ${
                       darkMode ? 'text-white' : 'text-gray-800'
                     }`}>
                       Tata Group Data Analytics Job Simulation
                     </CardTitle>
-                    <CardDescription className={`text-lg font-medium ${
+                    <CardDescription className={`text-base md:text-lg font-medium ${
                       darkMode ? 'text-blue-400' : 'text-gray-700'
                     }`}>
                       Forage
@@ -201,13 +202,13 @@ const Index = () => {
                   </div>
                   <Badge variant="secondary" className={`${
                     darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
-                  }`}>
+                  } text-xs md:text-sm`}>
                     May 2025
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className={`space-y-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <ul className={`space-y-2 text-sm md:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   <li>• Conducted EDA using GenAI tools to assess data quality and risk indicators</li>
                   <li>• Designed AI-driven collections strategy with agentic AI and automation</li>
                 </ul>
@@ -216,22 +217,22 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Games Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        {/* Games Section with improved mobile layout */}
+        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className={`text-4xl font-bold mb-8 ${
+            <h2 className={`text-3xl md:text-4xl font-bold mb-6 md:mb-8 ${
               darkMode ? 'text-white' : 'text-gray-800'
             }`}>
               Fun Zone
             </h2>
-            <p className={`text-lg mb-8 ${
+            <p className={`text-base md:text-lg mb-6 md:mb-8 ${
               darkMode ? 'text-gray-300' : 'text-gray-700'
             }`}>
               Take a break and enjoy a quick game!
             </p>
             <Button
               onClick={() => setShowGame(!showGame)}
-              className={`mb-8 px-8 py-3 text-lg transition-all duration-300 ${
+              className={`mb-6 md:mb-8 px-6 md:px-8 py-2 md:py-3 text-base md:text-lg transition-all duration-300 ${
                 darkMode 
                   ? 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700' 
                   : 'bg-gradient-to-r from-gray-700 to-black hover:from-gray-800 hover:to-gray-900'
@@ -249,30 +250,30 @@ const Index = () => {
 
         <Contact darkMode={darkMode} />
 
-        {/* Footer */}
-        <footer className={`py-8 px-4 sm:px-6 lg:px-8 border-t ${
+        {/* Footer with improved mobile layout */}
+        <footer className={`py-6 md:py-8 px-4 sm:px-6 lg:px-8 border-t ${
           darkMode 
-            ? 'bg-gray-900/50 border-gray-700' 
+            ? 'bg-black/50 border-gray-700' 
             : 'bg-white/50 border-gray-200'
         } backdrop-blur-sm`}>
           <div className="max-w-7xl mx-auto text-center">
-            <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className={`text-sm md:text-base ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
               © 2024 Rudra Kabrawala. Built with passion and innovation.
             </p>
           </div>
         </footer>
       </div>
 
-      {/* Floating ChatBot Button */}
+      {/* Floating ChatBot Button with better mobile positioning */}
       <Button
         onClick={() => setShowChatBot(!showChatBot)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 ${
+        className={`fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 ${
           darkMode 
             ? 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 shadow-blue-500/25' 
             : 'bg-gradient-to-r from-gray-700 to-black hover:from-gray-800 hover:to-gray-900 shadow-gray-500/25'
         }`}
       >
-        {showChatBot ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+        {showChatBot ? <X className="h-5 w-5 md:h-6 md:w-6" /> : <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />}
       </Button>
 
       {/* ChatBot Component */}
@@ -290,21 +291,8 @@ const Index = () => {
           }
         }
         
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        
         .animate-fade-in {
           animation: fade-in 0.8s ease-out forwards;
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
         }
         
         .animation-delay-500 {
@@ -315,16 +303,16 @@ const Index = () => {
           animation-delay: 1000ms;
         }
         
-        .animation-delay-1500 {
-          animation-delay: 1500ms;
+        /* Smooth scrolling for all browsers */
+        html {
+          scroll-behavior: smooth;
         }
         
-        .animation-delay-2000 {
-          animation-delay: 2000ms;
-        }
-        
-        .animation-delay-3000 {
-          animation-delay: 3000ms;
+        /* Ensure proper mobile viewport */
+        @media (max-width: 768px) {
+          body {
+            overflow-x: hidden;
+          }
         }
       `}</style>
     </div>
