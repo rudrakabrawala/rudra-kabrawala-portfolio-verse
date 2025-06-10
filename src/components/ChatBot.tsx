@@ -178,11 +178,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          prompt: `Answer this question about Rudra Kabrawala based on his personal information. 
-          Rudra is from Bharuch, Gujarat, India and currently studying at SVKM NMIMS in Shirpur, Maharashtra.
-          His skills include Python, C++, JavaScript, OpenCV, Machine Learning, MySQL, PL/SQL, Web-Scraping, and Excel.
-          He enjoys writing, cooking, football, exploring new technologies, and mentoring students.
-          Be accurate, precise, and keep responses under 100 words: ${userMessage}` 
+          prompt: userMessage
         })
       });
       
