@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -170,17 +171,26 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
     // For general or unrelated questions, use Hugging Face API via backend
     try {
       console.log("Calling Hugging Face API with prompt:", userMessage);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
       const response = await fetch('/api/huggingface', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          prompt: `Question: ${userMessage}\nAnswer:`
-        })
+        body: JSON.stringify({ prompt: userMessage }),
+        signal: controller.signal
       });
+      
+      clearTimeout(timeoutId);
+      
+      console.log("API response status:", response.status);
       
       if (!response.ok) {
         console.error("Hugging Face API Error:", response.status, response.statusText);
-        throw new Error(`API error: ${response.status}`);
+        const errorText = await response.text();
+        console.error("Error details:", errorText);
+        throw new Error(`API error: ${response.status} - ${errorText}`);
       }
       
       const data = await response.json();
@@ -189,10 +199,16 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       if (data.reply && data.reply.trim() && data.reply.length > 5) {
         return data.reply;
       } else {
+        console.log("Invalid reply from API:", data.reply);
         return "I can help you with questions about Rudra's skills, projects, experience, and background. What would you like to know?";
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error calling Hugging Face API:", err);
+      
+      if (err.name === 'AbortError') {
+        return "The request timed out. Please try asking a simpler question.";
+      }
+      
       return "I'm here to help you learn about Rudra Kabrawala! You can ask me about his skills, projects, experience, education, achievements, or any other aspect of his background.";
     }
   };
