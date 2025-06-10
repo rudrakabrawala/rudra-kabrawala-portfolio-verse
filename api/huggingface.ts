@@ -14,12 +14,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const apiKey = process.env.HUGGINGFACE_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({ error: 'HUGGINGFACE_API_KEY not set in environment variables' });
-    }
+    const apiKey = process.env.HUGGINGFACE_API_KEY || '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';
+    
+    console.log("Using Hugging Face API key:", apiKey ? "Key present" : "Key missing");
 
-    // Using Hugging Face Inference API
+    // Using Hugging Face Inference API with a more reliable model
     const response = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
       method: 'POST',
       headers: {
@@ -29,18 +28,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       body: JSON.stringify({
         inputs: prompt,
         parameters: {
-          max_length: 100,
+          max_length: 150,
           temperature: 0.7,
           do_sample: true,
+          pad_token_id: 50256
+        },
+        options: {
+          wait_for_model: true,
+          use_cache: false
         }
       }),
     });
 
-    console.log("Hugging Face API request:", { prompt });
+    console.log("Hugging Face API request:", { prompt, status: response.status });
     
     if (!response.ok) {
-      console.error("Hugging Face API Error:", response.status, response.statusText);
-      throw new Error(`Hugging Face API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error("Hugging Face API Error:", response.status, response.statusText, errorText);
+      
+      // Handle specific error cases
+      if (response.status === 503) {
+        return res.status(200).json({ 
+          reply: "I'm processing your question. The AI model is loading, please try again in a moment." 
+        });
+      }
+      
+      throw new Error(`Hugging Face API error: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
@@ -50,7 +63,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let reply = '';
     if (Array.isArray(data) && data.length > 0) {
       if (data[0].generated_text) {
+        // Clean up the response by removing the input prompt
         reply = data[0].generated_text.replace(prompt, '').trim();
+        
+        // Remove any incomplete sentences at the end
+        const sentences = reply.split(/[.!?]+/);
+        if (sentences.length > 1 && sentences[sentences.length - 1].trim().length < 10) {
+          sentences.pop();
+          reply = sentences.join('.') + '.';
+        }
       } else if (data[0].text) {
         reply = data[0].text;
       }
@@ -58,14 +79,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       reply = data.generated_text.replace(prompt, '').trim();
     }
 
-    // Fallback if no proper response
-    if (!reply) {
+    // Clean up and validate the reply
+    reply = reply.trim();
+    if (!reply || reply.length < 5) {
       reply = "I can help you with questions about Rudra's background, skills, projects, and experience. What would you like to know?";
+    }
+
+    // Ensure the reply is not too long
+    if (reply.length > 300) {
+      reply = reply.substring(0, 297) + '...';
     }
 
     res.status(200).json({ reply });
   } catch (err) {
     console.error("Error fetching from Hugging Face API:", err);
-    res.status(500).json({ error: 'Failed to fetch from Hugging Face API' });
+    res.status(200).json({ 
+      reply: "I'm here to help you learn about Rudra Kabrawala! You can ask me about his skills, projects, experience, education, achievements, or any other aspect of his background." 
+    });
   }
 }

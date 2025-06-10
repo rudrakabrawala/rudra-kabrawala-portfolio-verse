@@ -29,10 +29,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [sampleQuestions] = useState([
-    "Where does Rudra live?",
-    "What are Rudra's semester grades?",
+    "What are Rudra's skills?",
     "Tell me about Rudra's projects",
-    "What are Rudra's hobbies?"
+    "Where does Rudra live?",
+    "Who is the PM of India?"
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -110,20 +110,17 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       'offensive', 'hate', 'stupid', 'idiot', 'dumb', 'kill', 'suicide', 
       'racist', 'sex', 'sexual', 'porn', 'drugs', 'violence', 'terrorist', 
       'bomb', 'attack', 'kill yourself', 'fuck', 'shit', 'bitch', 'asshole', 
-      'dick', 'pussy', 'nigger', 'faggot', 'cunt', 'slut', 'whore', 
-      'personal question', 'too personal', 'sensitive question', 'inappropriate', 
-      'private', 'confidential'
+      'dick', 'pussy', 'nigger', 'faggot', 'cunt', 'slut', 'whore'
     ];
 
     const lowerMessage = userMessage.toLowerCase();
 
-    // Check if message contains offensive or sensitive keywords
+    // Check if message contains offensive keywords
     if (offensiveKeywords.some(keyword => lowerMessage.includes(keyword))) {
       const politeResponses = [
         "I am here to help and provide respectful and positive interactions. Let's keep the conversation friendly and constructive.",
-        "I respect your privacy and will only share information that is appropriate and comfortable. If a question is too personal, I may politely decline to answer.",
         "Please keep the conversation respectful. I am here to assist with relevant questions and provide helpful information.",
-        "I encourage positive and respectful communication. Offensive language is not tolerated and may result in ending the conversation."
+        "I encourage positive and respectful communication. Let's focus on helpful topics!"
       ];
       return politeResponses[Math.floor(Math.random() * politeResponses.length)];
     }
@@ -177,7 +174,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          prompt: `User asks: ${userMessage}. Please provide a helpful and informative response.`
+          prompt: `Question: ${userMessage}\nAnswer:`
         })
       });
       
@@ -189,7 +186,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       const data = await response.json();
       console.log("Hugging Face API response:", data);
       
-      if (data.reply && data.reply.trim()) {
+      if (data.reply && data.reply.trim() && data.reply.length > 5) {
         return data.reply;
       } else {
         return "I can help you with questions about Rudra's skills, projects, experience, and background. What would you like to know?";
