@@ -1,6 +1,6 @@
 // /api/gpt.ts
 // This is a simple Next.js API route example. If you use Vite or another framework, adapt accordingly.
-// You must set OPENAI_API_KEY in your environment variables.
+// You must set GEMINI_API_KEY in your environment variables.
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
@@ -13,22 +13,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'No prompt provided' });
   }
   try {
-    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY not set in environment variables' });
+    }
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    const body = {
+      contents: [{ parts: [{ text: prompt }] }]
+    };
+    const geminiRes = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 256
-      })
+      body: JSON.stringify(body)
     });
-    const data = await openaiRes.json();
-    const reply = data.choices?.[0]?.message?.content || '';
+    const data = await geminiRes.json();
+    const reply = data.candidates && data.candidates.length > 0 ? data.candidates[0].content : '';
     res.status(200).json({ reply });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch from OpenAI' });
+    console.error("Error fetching from Gemini API:", err);
+    res.status(500).json({ error: 'Failed to fetch from Gemini API' });
   }
 }

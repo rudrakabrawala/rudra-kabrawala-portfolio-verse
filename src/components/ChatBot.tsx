@@ -171,9 +171,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       return "You can download Rudra's resume directly from the website using the 'Download Resume' button in the hero section!";
     }
 
-    // For general or unrelated questions, use OpenAI GPT API
+    // For general or unrelated questions, use Gemini API via backend
     try {
-      console.log("Calling OpenAI API with prompt:", userMessage);
+      console.log("Calling Gemini API with prompt:", userMessage);
       const response = await fetch('/api/gpt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -187,15 +187,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       });
       
       if (!response.ok) {
-        console.error("API Error:", response.status);
+        console.error("Gemini API Error:", response.status);
         throw new Error('API error');
       }
       
       const data = await response.json();
-      console.log("OpenAI API response:", data);
+      console.log("Gemini API response:", data);
       return data.reply || "I couldn't find specific information about that. Would you like to know about Rudra's skills, projects, or experience instead?";
     } catch (err) {
-      console.error("Error calling OpenAI API:", err);
+      console.error("Error calling Gemini API:", err);
       return "I'm having trouble connecting to my knowledge base right now. Could you ask me something specific about Rudra's skills, projects, or experience instead?";
     }
   };
