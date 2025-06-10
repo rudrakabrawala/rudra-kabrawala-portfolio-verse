@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -173,7 +172,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       console.log("Calling Hugging Face API with prompt:", userMessage);
       
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
       
       const response = await fetch('/api/huggingface', {
         method: 'POST',
@@ -188,9 +187,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       
       if (!response.ok) {
         console.error("Hugging Face API Error:", response.status, response.statusText);
-        const errorText = await response.text();
-        console.error("Error details:", errorText);
-        throw new Error(`API error: ${response.status} - ${errorText}`);
+        throw new Error(`API error: ${response.status}`);
       }
       
       const data = await response.json();
@@ -206,7 +203,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ darkMode }) => {
       console.error("Error calling Hugging Face API:", err);
       
       if (err.name === 'AbortError') {
-        return "The request timed out. Please try asking a simpler question.";
+        return "The request timed out. Please try asking a simpler question or ask me about Rudra's background.";
       }
       
       return "I'm here to help you learn about Rudra Kabrawala! You can ask me about his skills, projects, experience, education, achievements, or any other aspect of his background.";
