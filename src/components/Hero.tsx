@@ -74,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({ darkMode }) => {
               <Button 
                 variant="outline" 
                 size="lg"
-                onClick={() => window.open('www.linkedin.com/in/rudra-kabrawala', '_blank')}
+                onClick={() => window.open('https://www.linkedin.com/in/rudra-kabrawala', '_blank')}
                 className={`transition-all duration-300 transform hover:scale-110 hover:shadow-lg ${
                   darkMode 
                     ? 'border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-white' 

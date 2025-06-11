@@ -63,7 +63,7 @@ const Contact: React.FC<ContactProps> = ({ darkMode }) => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => window.open('https://linkedin.com/in/rudrakabrawala', '_blank')}
+                onClick={() => window.open('https://www.linkedin.com/in/rudra-kabrawala', '_blank')}
                 className={`transition-all duration-300 transform hover:scale-110 hover:shadow-xl text-xs md:text-sm ${
                   darkMode 
                     ? 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-cyan-400 hover:text-cyan-400' 
